@@ -23,7 +23,8 @@ source "amazon-ebs" "wireguard" {
   ami_name                = "wireguard-${local.timestamp}"
   ami_virtualization_type = "hvm"
   encrypt_boot            = true
-  instance_type           = "t2.micro"
+  spot_instance_types     = ["t2.micro"]
+  spot_price              = "auto"
   region                  = var.aws_region
   secret_key              = var.aws_secret_key
   source_ami_filter {
@@ -36,7 +37,9 @@ source "amazon-ebs" "wireguard" {
     most_recent = true
     owners      = ["amazon"]
   }
+  ssh_interface = "session_manager"
   ssh_username = "ec2-user"
+  iam_instance_profile = "packer-build-instance-profile"
 }
 
 build {
