@@ -4,6 +4,7 @@ on:
   push:
     branches: [main, initial]
 
+# retry
 jobs:
   build:
     runs-on: ubuntu-latest
